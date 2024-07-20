@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 function HomePage() {
   const [posts, setPosts] = useState(postsData);
   const [totalPosts, setTotalPosts] = useState(0);
-  const [externalPosts, setExternalPosts] = useState([]);
 
   const onSearchChange = (value) => {
     const filteredPosts = postsData.filter((item) =>
@@ -22,25 +21,12 @@ function HomePage() {
       .then((json) => setExternalPosts(json));
   }, []);
 
-  useEffect(() => {
-    console.log("ada post baru");
-  }, [posts]);
-
-  useEffect(() => {
-    console.log("render");
-  });
-
   return (
     <>
       <h1>Simple Blog</h1>
       <Search onSearchChange={onSearchChange} totalPosts={totalPosts} />
       {posts.map((props, index) => (
         <Article {...props} key={index} />
-      ))}
-      <hr />
-      <h2>External Posts</h2>
-      {externalPosts.map((item, index) => (
-        <div key={index}>- {item.title}</div>
       ))}
     </>
   );
